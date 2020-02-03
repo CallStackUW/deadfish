@@ -1,0 +1,20 @@
+In terms of the code, we're thinking something along the lines of...
+
+```
+>[, "something in here..."]
+```
+
+Our tape has 2 locations of interest.
+
+----------
+| A | B |
+----------
+
+A is the current number. B is the instruction that is inputted.
+
+The hard part is trying to check which instruction B is.
+
+We were thinking some kind of nested loop that tries to decrement B till it reaches 0 and then executing a certain instruction based on how soon it reaches 0.
+
+Sorry if this doesn't make a lot of sense :/
+We'll go over it together at the start of next week's meeting.
