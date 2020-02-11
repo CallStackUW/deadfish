@@ -1,1 +1,45 @@
 Notes from 2/10/20 Meeting
+
+We talked about the idea of storing the ascii values of the four instructions in 4 cells of the tape. With this approach, we would need to compare the next instruction to the values in each of these 4 cells. However, we realized that this approach is very complex.
+The ascii values are as follows:
+  d - 100
+  i - 105
+  o - 111
+  s - 115
+
+We also talked about the idea of decrementing the value in cell B along the the values in these 4 cells, and then check which of the 4 values are 0. However, this was too complicated.
+
+We then discussed the idea of designating 4 cells as 'flag' cells. Based on what the next instruction is, we set one of these 4 cells to the value 1 (a flag).
+
+The following diagram depicts how we would designate cells in the tape for different purposes:
+--------------------------
+| A | B | d | i | o | s |
+--------------------------
+A is the current number we are manipulating. B is the next instruction that is inputted. i, d, s, and o are the 'flag' cells. e.g., if the next instruction in cell B is increment, the value in the i cell will get set to 1.
+
+I will try my best to summarize our discussion, but we can go over this again
+at our next meeting!
+For each value we read in, we decrement until we get to 0. We have a nested loop structure.Inside each loop, we must undo the operations that will occur when we exit the loop.
+,"-100"[
+        "-5"[
+             "-6"[
+                  "-4"[
+                       >->->->-<<<<  // decrement all
+                      ]>->->->+  // decrement d, i, p cells and increment s
+                 ]>->->+  // decrement d, i cells and increment o cell
+            ]>- >+  // decrement d cell and increment i cell
+       ]>+  // increment d cell
+
+Here is the same thing but on one line
+,"-100"["-5"["-6"["-4"[>->->->-<<<<]>->->->+]>->->+]>->+]>+
+
+Then, we move to the right, checking the value in each flag cell.
+If the value is nonzero, we go into the loop and perform the
+corresponding operation on the value in cell A. We also decrement
+the flag value to set it back to 0. At the end, we must move all
+the way back to cell B.
+>[-<<->>]>[-<<<+>>>]>[-<<<<.>>>>]>[-<<<<<"square">>>>>]<<<<
+
+All of this will be in a loop that continues while the user enters in instructions in deadfish (i, d, s, o) to execute.
+
+Next step is to work on the "square" operation, test the functionality of this, and consider any optimizations... :)
