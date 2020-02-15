@@ -1,0 +1,91 @@
+code so far:
+-100[-5[>+<-6[-4>-<>>+<<]]<++>]<->>[-<<-.]>[-<<<-*square-number*>>>]<<
+
+d = 100
+i = 105
+s = 115
+o = 111
+
+tape layout
+          
+|number|input|output-flag|square-flag|sq0|sq1|sq2|sq3|
+
+full code, with number-squaring included: >[,[----------------------------------------------------------------------------------------------------[-----[>+<------[---->-<>>+<<]]<++>]<->>[-<<-.>>]>[-<<<-[->>>>>+>+<<<<<<]>>>>>>[-<[-<+>>>+<<]>>[-<<+>>]<]<[-]<[-<<<<+>>>>]<]<<]]
+
+
+code explained:
+>
+[
+    ,   // get input
+    [
+        //assume that at this point the pointer is pointing to the input position on the tape.
+        -100[ // we know that input is not d.
+            -5[ // we know that input is not i.
+                >+< // increment the output-flag by 1.
+                -6[ // we know that input is not o. Thus, input is s.
+                    -4 // as input is s, we can subtract 4 to bring total to 0.
+                    >-< // decrement the output-flag, we want to square, not output.
+                    >>+<< // increment the square-flag, we want to square, not output.
+                ]
+            ]
+            <++> // increment number by two here, to counter the decrement.
+        ]
+        <-> // decrement number by one here
+        > // move to output flag
+        [  // if output flag is not 0
+            - // make output flag 0
+            << // go back to the number
+            -  // decrement by one to counter the increment
+            .  // print
+            >> // go back to output flag
+        ]
+        > // move to square flag
+        [
+            -   // make square-flag 0
+            <<< // go back to the number
+            -   // decrement by one to counter the increment
+            [   // move value in number into sq1 and sq2
+                -
+                >>>>>   // go to sq1
+                +       
+                >       // go to sq2
+                +       
+                <<<<<<  // go back to number
+            ]
+            >>>>>>      // go to sq2
+            [
+                -       // subtract from sq2 counter
+                <       // move to sq1
+                [       // add value in sq1 to sq0 and sq3, leaving sq1 at 0.
+                    -   
+                    <
+                    +
+                    >>>
+                    +
+                    <<
+                ]
+                >>      // move to sq3
+                [       // set sq1 to sq3, set sq3 to 0
+                    -
+                    <<
+                    +
+                    >>
+                ]
+                <       // go back to sq2
+            ]
+            <   // zero out sq1
+            [
+                -
+            ]
+            <   // set number to sq0, set sq0 to 0
+            [
+                -
+                <<<<
+                +
+                >>>>
+            ]
+            <   // go back to square flag
+        ]
+        << // go back to input
+    ]
+]
