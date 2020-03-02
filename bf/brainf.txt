@@ -10,13 +10,13 @@ tape layout
           
 |number|input|output-flag|square-flag|sq0|sq1|sq2|sq3|
 
-full code, with number-squaring included: >[,[----------------------------------------------------------------------------------------------------[-----[>+<------[---->-<>>+<<]]<++>]<->>[-<<-.>>]>[-<<<-[->>>>>+>+<<<<<<]>>>>>>[-<[-<+>>>+<<]>>[-<<+>>]<]<[-]<[-<<<<+>>>>]<]<<]]
+full code, with number-squaring included: >+[,[----------------------------------------------------------------------------------------------------[-----[>+<------[---->-<>>+<<]]<++>]<->>[-<<-.>>]>[-<<<-[->>>>>+>+<<<<<<]>>>>>>[-<[-<+>>>+<<]>>[-<<+>>]<]<[-]<[-<<<<+>>>>]<]<<]+]
 
 
 code explained:
 >
+,  // get initial input
 [
-    ,   // get input
     [
         //assume that at this point the pointer is pointing to the input position on the tape.
         -100[ // we know that input is not d.
@@ -88,4 +88,5 @@ code explained:
         ]
         << // go back to input
     ]
+    ,  // get next input
 ]
